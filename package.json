@@ -1,0 +1,25 @@
+{
+  "name": "easy-scrum-frontend",
+  "version": "1.0.0",
+  "description": "SPA do app EasyScrum",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gabriel1680/EasyScrum-frontend.git"
+  },
+  "keywords": [
+    "scrum",
+    "agile",
+    "react",
+    "frontend"
+  ],
+  "author": "Gabriel P. Lopes",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gabriel1680/EasyScrum-frontend/issues"
+  },
+  "homepage": "https://github.com/gabriel1680/EasyScrum-frontend#readme"
+}
