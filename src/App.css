@@ -8,8 +8,11 @@
 }
 
 .app-header {
-    padding: 8px 16px;
-    border-bottom: 1px solid black;
+    padding: 16px;
+    background-color: #1D62CB;
+    color: white;
+    font-weight: 700;
+    font-size: 20px;
 }
 
 .app-content {

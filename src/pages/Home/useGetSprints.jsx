@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
-import { api } from "../../services/api";
+import { useState, useEffect } from 'react';
+
+import { api } from '../../services/api';
 
 export default function useGetSprints() {
     const [sprints, setSprints] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
