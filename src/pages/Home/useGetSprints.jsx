@@ -15,7 +15,7 @@ export default function useGetSprints() {
         try {
             setIsLoading(true);
             const { data } = await api.get('/sprints');
-            setSprints(data);
+            setSprints(data.sprints);
         } catch (error) {
            setError(error);
         } finally {

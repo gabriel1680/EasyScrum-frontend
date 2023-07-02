@@ -14,6 +14,7 @@ function Home() {
     useEffect(() => {
         if (!isLoading && error !== null) {
             notifyError();
+            console.error(error);
         }
     }, [error]);
 

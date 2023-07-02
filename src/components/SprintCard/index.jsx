@@ -1,27 +1,27 @@
-import { DoneOutlineRounded } from "@mui/icons-material";
+import { DoneRounded } from "@mui/icons-material";
 
 import './style.css';
 
 function SprintCard({ sprint }) {
-    const doneTasksAmout = getTasksCountWithStatus('done');
+    const doneTasksAmout = getTasksCountWithStatus('finalizado');
     const donePercentage = (doneTasksAmout / sprint.tasks.length * 100);
 
     return (
         <div className='sprint-card'>
             <div className='sprint-name'>{ sprint.name }</div>
-            <div className='progress-bar'>
+            <div className='sprint-progress-bar'>
                 <div className='progress' style={{ width: `${donePercentage}%` }}></div>
             </div>
             <div className='progress-labels'>
                 <div className='label'>Progress</div>
-                <div>{ donePercentage }%</div>
+                <div>{donePercentage}%</div>
             </div>
             <div className='due-date'>
-                <div>Due in: { getDaysOffsetFromNow(sprint.due_date) } days</div>
+                <div>Due in: {getDaysOffsetFromNow(sprint.due_date)} days</div>
             </div>
             <div className='done-container'>
                 <div className='done'>
-                    <DoneOutlineRounded fontSize='inherit' color='success' />
+                    <DoneRounded fontSize='inherit' color='success' />
                 </div>
                 <div>{doneTasksAmout} / {sprint.tasks.length}</div>
             </div>
