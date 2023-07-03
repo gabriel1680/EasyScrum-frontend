@@ -4,7 +4,7 @@ import './style.css';
 
 function SprintCard({ sprint }) {
     const doneTasksAmout = getTasksCountWithStatus('finalizado');
-    const donePercentage = (doneTasksAmout / sprint.tasks.length * 100);
+    const donePercentage = sprint.tasks.length > 0 ? (doneTasksAmout / sprint.tasks.length * 100) : 0;
 
     return (
         <div className='sprint-card'>
