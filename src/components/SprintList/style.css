@@ -1,5 +1,24 @@
 .sprint-list {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 32px;
 }
+
+@media (max-width: 1024px) {
+    .sprint-list {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media (max-width: 1004px) {
+    .sprint-list {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 678px) {
+    .sprint-list {
+        grid-template-columns: 1fr;
+    }
+}
+

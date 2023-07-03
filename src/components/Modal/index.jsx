@@ -7,7 +7,7 @@ function Modal({ children, onClose }) {
     return (
         <div className='app-modal'>
             <div className='app-modal-content'>
-                <span class='modal-close' onClick={onClose}>&times;</span>
+                <span className='modal-close' onClick={onClose}>&times;</span>
                 {children}
             </div>
         </div>

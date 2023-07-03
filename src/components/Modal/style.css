@@ -33,3 +33,10 @@
     cursor: pointer;
 }
 
+
+@media (max-width: 618px) {
+    .app-modal-content {
+        margin: 30% auto;
+    }
+}
+
