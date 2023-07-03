@@ -29,10 +29,10 @@ function Home() {
     }
 
     function onCreateSprintError(error) {
-        if (error.response.status !== 422) {
+        if (error.status !== 400) {
             toast.error('Parece que houve um erro ao cadastrar a sprint');
         } else {
-            toast.error(error.message);
+            toast.error(error.data.message);
         }
         console.error(error);
     }

@@ -15,14 +15,11 @@ function CreateSprintForm({ onSuccess, onError }) {
         try {
             e.preventDefault();
             setIsLoading(true);
-            const form = new FormData();
-            form.append('name', name);
-            form.append('description', description);
-            form.append('due_date', dueDate);
-            const { data } = await api.post('/sprints', form);
+            const payload = createFormDataWithFields();
+            const { data } = await api.post('/sprints', payload);
             onSuccess(data);
         } catch (error) {
-            onError(error);
+            onError(error.response);
         } finally {
             setIsLoading(false);
         }
@@ -40,6 +37,14 @@ function CreateSprintForm({ onSuccess, onError }) {
             <Button text='Salvar' variant='primary' isLoading={isLoading} type='submit'/>
         </form>
     );
+        
+    function createFormDataWithFields() {
+        const form = new FormData();
+        form.append('name', name);
+        form.append('description', description);
+        form.append('due_date', dueDate);
+        return form;
+    } 
 }
 
 CreateSprintForm.propType = {
