@@ -1,12 +1,32 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types'
 
 import './style.css';
 import Button from '../Button';
+import { api } from '../../services/api';
 
-function CreateSprintForm({ onSubmit }) {
+function CreateSprintForm({ onSuccess, onError }) {
+    const [isLoading, setIsLoading] = useState(false);
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [dueDate, setDueDate] = useState(null);
+
+    async function onSubmit(e) {
+        try {
+            e.preventDefault();
+            setIsLoading(true);
+            const form = new FormData();
+            form.append('name', name);
+            form.append('description', description);
+            form.append('due_date', dueDate);
+            const { data } = await api.post('/sprints', form);
+            onSuccess(data);
+        } catch (error) {
+            onError(error);
+        } finally {
+            setIsLoading(false);
+        }
+    }
 
     return (
         <form className='create-sprint-form' onSubmit={onSubmit}>
@@ -17,9 +37,15 @@ function CreateSprintForm({ onSubmit }) {
             <textarea name='description' type='text' required value={description} onChange={e => setDescription(e.target.value)}></textarea>
             <label for='dueDate'>Termina em</label>
             <input name='dueDate' type='datetime-local' required value={dueDate} onChange={e => setDueDate(e.target.value)}/>       
-            <Button text='Salvar' variant='primary'/>
+            <Button text='Salvar' variant='primary' isLoading={isLoading} type='submit'/>
         </form>
     );
 }
 
+CreateSprintForm.propType = {
+    onSuccess: PropTypes.func,
+    onError: PropTypes.func
+};
+
 export default CreateSprintForm
+

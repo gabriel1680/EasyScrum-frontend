@@ -10,21 +10,31 @@ import CreateSprintForm from '../../components/CreateSprintForm';
 import Modal from '../../components/Modal';
 
 function Home() {
+    const [refetch, setRefetch] = useState(0);
     const [showModal, setShowModal] = useState(false);
 
-    const { sprints, isLoading, error } = useGetSprints();
-
-    const notifyError = () => toast.error('Parece que algo deu errado ao carregar os dados');
+    const { sprints, isLoading, error } = useGetSprints(refetch);
 
     useEffect(() => {
         if (!isLoading && error !== null) {
-            notifyError();
+            toast.error('Parece que algo deu errado ao carregar os dados');
             console.error(error);
         }
     }, [error]);
 
-    function handleCreateSprint() {
-        // TODO: Adicionar a lógica de criar uma sprint
+    function onCreateSprintSuccess() {
+        toast.success('Sprint criada com sucesso!');
+        setShowModal(false);
+        setRefetch(prev => prev += 1);
+    }
+
+    function onCreateSprintError(error) {
+        if (error.response.status !== 422) {
+            toast.error('Parece que houve um erro ao cadastrar a sprint');
+        } else {
+            toast.error(error.message);
+        }
+        console.error(error);
     }
 
     return (
@@ -36,7 +46,7 @@ function Home() {
             {isLoading && <LoadingSpinner />}
             <SprintList sprints={sprints}/>
             {showModal && <Modal onClose={() => setShowModal(false)}>
-                <CreateSprintForm onSubmit={handleCreateSprint} />
+                <CreateSprintForm onError={onCreateSprintError} onSuccess={onCreateSprintSuccess} />
             </Modal>
             }
         </> 
