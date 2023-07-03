@@ -9,7 +9,7 @@ function CreateSprintForm({ onSuccess, onError }) {
     const [isLoading, setIsLoading] = useState(false);
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
-    const [dueDate, setDueDate] = useState();
+    const [dueDate, setDueDate] = useState('');
 
     async function onSubmit(e) {
         try {
