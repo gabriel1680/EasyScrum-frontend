@@ -1,13 +1,16 @@
 import { DoneRounded } from "@mui/icons-material";
+import { useNavigate } from "react-router";
 
 import './style.css';
 
 function SprintCard({ sprint }) {
+    const navigate = useNavigate();
+
     const doneTasksAmout = getTasksCountWithStatus('finalizado');
     const donePercentage = sprint.tasks.length > 0 ? (doneTasksAmout / sprint.tasks.length * 100) : 0;
 
     return (
-        <div className='sprint-card'>
+        <div className='sprint-card' onClick={() => navigate(`/${sprint.id}/tasks`)}>
             <div className='sprint-name'>{ sprint.name }</div>
             <div className='sprint-progress-bar'>
                 <div className='progress' style={{ width: `${donePercentage}%` }}></div>
