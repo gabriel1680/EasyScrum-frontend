@@ -1,0 +1,43 @@
+.back-link {
+    margin-bottom: 24px;
+}
+
+.tasks-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 24px;
+}
+
+.tasks-section-container {
+    background-color: #F5F5F5;
+    border-radius: 8px;
+    padding: 24px;
+}
+
+.tasks-section-container h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    width: fit-content;
+    padding: 8px 16px;
+    border-radius: 32px;
+    margin-bottom: 24px;
+}
+
+.tasks-section-container h2.backlog {
+    background-color: #3ECCFE;;
+}
+
+.tasks-section-container h2.in-progress {
+    background-color: #D758E2;
+}
+
+.tasks-section-container h2.revision {
+    background-color: #FFB92F;
+}
+
+.tasks-section-container h2.done {
+    background-color: #4AC792;
+    border: none;
+}
+

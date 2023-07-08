@@ -6,7 +6,7 @@ import './style.css';
 function SprintCard({ sprint }) {
     const navigate = useNavigate();
 
-    const doneTasksAmout = getTasksCountWithStatus('finalizado');
+    const doneTasksAmout = getTasksCountWithStatus('done');
     const donePercentage = sprint.tasks.length > 0 ? (doneTasksAmout / sprint.tasks.length * 100) : 0;
 
     return (
@@ -20,7 +20,7 @@ function SprintCard({ sprint }) {
                 <div>{donePercentage}%</div>
             </div>
             <div className='due-date'>
-                <div>Due in: {getDaysOffsetFromNow(sprint.due_date)} days</div>
+                <div>Termina em: {getDaysOffsetFromNow(sprint.due_date)} dias</div>
             </div>
             <div className='done-container'>
                 <div className='done'>

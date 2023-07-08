@@ -47,8 +47,7 @@ function Home() {
             <SprintList sprints={sprints}/>
             {showModal && <Modal onClose={() => setShowModal(false)}>
                 <CreateSprintForm onError={onCreateSprintError} onSuccess={onCreateSprintSuccess} />
-            </Modal>
-            }
+            </Modal>}
         </> 
     );
 }
