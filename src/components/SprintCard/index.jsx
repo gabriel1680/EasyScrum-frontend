@@ -17,7 +17,7 @@ function SprintCard({ sprint }) {
             </div>
             <div className='progress-labels'>
                 <div className='label'>Progress</div>
-                <div>{donePercentage}%</div>
+                <div>{round(donePercentage)}%</div>
             </div>
             <div className='due-date'>
                 <div>Termina em: {getDaysOffsetFromNow(sprint.due_date)} dias</div>
@@ -31,6 +31,12 @@ function SprintCard({ sprint }) {
         </div>
     );
 
+    /**
+     * Conta a quantidade de tarefas com o status informado
+     *
+     * @params {string} status
+     * @returns {number}
+     */
     function getTasksCountWithStatus(status) {
         return sprint.tasks.reduce((total, task) => total += task.status === status ? 1 : 0, 0);
     }
@@ -47,6 +53,16 @@ function getDaysOffsetFromNow(date) {
     const now = new Date(); 
     const offsetInMS = new Date(date).getTime() - now.getTime();
     return Math.ceil(offsetInMS / MS_TO_DAYS_CONVERT_RATE);
+}
+
+/**
+ * Arredonda um número para 2 casas decimais
+ *
+ * @params {number} percentage
+ * @returns {string}
+ */
+function round(percentage) {
+    return percentage.toFixed(2);
 }
 
 export default SprintCard;
