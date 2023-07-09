@@ -2,6 +2,12 @@ import { useState, useEffect } from 'react';
 
 import { api } from '../../services/api';
 
+/**
+ * Busca as sprints na api
+ *
+ * @params { number } refetch
+ * @returns {{ isLoading: boolean, sprints: any[], error: any }}
+ */
 export default function useGetSprints(refetch) {
     const [sprints, setSprints] = useState([]);
     const [isLoading, setIsLoading] = useState(false);

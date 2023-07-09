@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import { useParams } from 'react-router';
 import { toast } from 'react-toastify';
 
 import './style.css';
 import Button from '../../components/Button';
 import LoadingSpinner from '../../components/LoadingSpinner';
-import { useParams } from 'react-router';
 import useGetSprint from './useGetSprint';
 import useGetTasks from './useGetTasks';
 import Modal from '../../components/Modal';
@@ -52,12 +51,16 @@ function TasksView() {
     }
 
     function onCreateTaskError(error) {
-        if (error.status !== 400) {
+        if (![400, 422].includes(error.status)) {
             toast.error('Parece que houve um erro ao cadastrar a tarefa');
         } else {
             toast.error(error.data.message);
         }
         console.error(error);
+    }
+
+    function onTaskUpdate() {
+        setRefetch(prev => prev += 1);
     }
 
     return (
@@ -71,22 +74,22 @@ function TasksView() {
                 <div className='tasks-section-container'>
                     <h2 className='backlog'>Backlog</h2>
                     {isTasksLoading && <LoadingSpinner />}
-                    <TaskList tasks={backlogTasks} />
+                    <TaskList onTaskUpdate={onTaskUpdate} tasks={backlogTasks} />
                 </div> 
                 <div className='tasks-section-container'>
                     <h2 className='in-progress'>Em andamanento</h2>
                     {isTasksLoading && <LoadingSpinner />}
-                    <TaskList tasks={inProgressTasks} />
+                    <TaskList onTaskUpdate={onTaskUpdate} tasks={inProgressTasks} />
                 </div> 
                 <div className='tasks-section-container'>
                     <h2 className='revision'>Aguardando revisão</h2>
                     {isTasksLoading && <LoadingSpinner />}
-                    <TaskList tasks={revisionTasks} />
+                    <TaskList onTaskUpdate={onTaskUpdate} tasks={revisionTasks} />
                 </div> 
                 <div className='tasks-section-container'>
                     <h2 className='done'>Concluído</h2>
                     {isTasksLoading && <LoadingSpinner />}
-                    <TaskList tasks={doneTasks} />
+                    <TaskList onTaskUpdate={onTaskUpdate} tasks={doneTasks} />
                 </div> 
             </div>
             {showModal && <Modal onClose={() => setShowModal(false)}>

@@ -2,6 +2,12 @@ import { useState, useEffect } from 'react';
 
 import { api } from '../../services/api';
 
+/**
+ * Busca as tasks referentes à sprint na api
+ *
+ * @params {{ refetch: number, sprintId: number }} arg0
+ * @returns {{ isLoading: boolean, tasks: any[], error: any }}
+ */
 export default function useGetTasks({ refetch, sprintId }) {
     const [tasks, setTasks] = useState([]);
     const [isLoading, setIsLoading] = useState(false);

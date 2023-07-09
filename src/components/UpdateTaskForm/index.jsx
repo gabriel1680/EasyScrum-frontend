@@ -6,14 +6,17 @@ import Button from '../Button';
 import { api } from '../../services/api';
 import TaskForm from '../TaskForm';
 
-function CreateTaskForm({ onSuccess, onError, sprintId }) {
+/**
+ * Renderiza o form de atualização de uma task
+ */
+function UpdateTaskForm({ onSuccess, onError, task }) {
     const [isLoading, setIsLoading] = useState(false);
 
-    async function onSubmit(task) {
+    async function onSubmit(taskData) {
         try {
             setIsLoading(true);
-            const payload = createFormDataWithFields(task);
-            const { data } = await api.post(`/sprints/${sprintId}/tasks`, payload);
+            const payload = createFormDataWithFields(taskData);
+            const { data } = await api.put(`/sprints/${task.sprint_id}/tasks/${task.id}`, payload);
             onSuccess(data);
         } catch (error) {
             onError(error.response);
@@ -24,13 +27,14 @@ function CreateTaskForm({ onSuccess, onError, sprintId }) {
 
     return (
         <>
-            <h3>Nova tarefa</h3>
-            <TaskForm onSubmit={onSubmit}>
+            <h3>Tarefa - {task.title}</h3>
+            <TaskForm onSubmit={onSubmit} task={task}>
+                <Button text='Excluir' variant='error' isLoading={isLoading} type='button'/>
                 <Button text='Salvar' variant='primary' isLoading={isLoading} type='submit'/>
             </TaskForm>
         </>
     );
-        
+
     function createFormDataWithFields({ title, status, story, dueDate }) {
         const form = new FormData();
         form.append('title', title);
@@ -41,11 +45,11 @@ function CreateTaskForm({ onSuccess, onError, sprintId }) {
     } 
 }
 
-CreateTaskForm.propType = {
+UpdateTaskForm.propType = {
     onSuccess: PropTypes.func,
     onError: PropTypes.func,
-    sprintId: PropTypes.number
+    task: PropTypes.object
 };
 
-export default CreateTaskForm;
+export default UpdateTaskForm;
 
