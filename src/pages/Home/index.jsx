@@ -43,7 +43,7 @@ function Home() {
                 <h1>Sprints</h1>
                 <Button text='+ Nova sprint' variant='primary' onClick={() => setShowModal(true)}/>
             </div>
-            {isLoading && <LoadingSpinner />}
+            {isLoading && <LoadingSpinner size={40} />}
             <SprintList sprints={sprints}/>
             {showModal && <Modal onClose={() => setShowModal(false)}>
                 <CreateSprintForm onError={onCreateSprintError} onSuccess={onCreateSprintSuccess} />

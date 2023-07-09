@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 
-import './style.css';
-
 /**
  * Renderiza o form de uma task
  */
@@ -17,7 +15,7 @@ function TaskForm({ onSubmit, task = {}, children }) {
     }
 
     return (
-        <form className='task-form' onSubmit={handleFormSubmit}>
+        <form onSubmit={handleFormSubmit}>
             <label htmlFor='title'>Título</label>
             <input name='title' type='text' required value={title} onChange={e => setTitle(e.target.value)}/>       
             <label htmlFor='status'>Status</label>

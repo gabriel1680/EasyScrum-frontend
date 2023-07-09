@@ -1,8 +1,0 @@
-form.create-sprint-form {
-    gap: 8px;
-}
-
-form.create-sprint-form > *:last-child {
-    margin-top:16px;
-}
-
