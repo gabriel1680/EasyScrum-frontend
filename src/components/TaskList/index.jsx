@@ -2,9 +2,9 @@ import { useState } from 'react';
 import PropTypes from 'prop-types'
 import { toast } from 'react-toastify';
 
+import './style.css';
 import Modal from '../Modal';
 import TaskCard from '../TaskCard';
-import './style.css';
 import UpdateTaskForm from '../UpdateTaskForm';
 
 function TaskList({ tasks, onTaskUpdate }) {
@@ -30,6 +30,20 @@ function TaskList({ tasks, onTaskUpdate }) {
         toast.error('Parece que algo deu errado ao atualizar a tarefa');
     }
 
+    function onDeleteSuccess() {
+        setShowTaskModal(false);
+        toast.success('Tarefa removida com sucesso');
+        onTaskUpdate();
+    }
+
+    function onDeleteFailure(error) {
+        const { status } = error;
+        if ([400, 422].includes(status)) {
+            return toast.error(error.data.message);
+        }
+        toast.error('Parece que algo deu errado ao remover a tarefa');
+    }
+
     return (
         <div className='task-list'>
             {
@@ -40,7 +54,13 @@ function TaskList({ tasks, onTaskUpdate }) {
             {
                 showTaskModal &&
                 <Modal onClose={() => setShowTaskModal(false)}>
-                    <UpdateTaskForm onError={onUpdateFailure} onSuccess={onUpdateSuccess} task={task}  />
+                    <UpdateTaskForm 
+                        onUpdateError={onUpdateFailure} 
+                        onUpdateSuccess={onUpdateSuccess} 
+                        onDeleteError={onDeleteFailure}
+                        onDeleteSuccess={onDeleteSuccess}
+                        task={task}
+                    />
                 </Modal>
             }
         </div>

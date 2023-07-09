@@ -9,7 +9,7 @@ import TaskForm from '../TaskForm';
 /**
  * Renderiza o form de atualização de uma task
  */
-function UpdateTaskForm({ onSuccess, onError, task }) {
+function UpdateTaskForm({ onUpdateSuccess, onUpdateError, onDeleteError, onDeleteSuccess, task }) {
     const [isLoading, setIsLoading] = useState(false);
 
     async function onSubmit(taskData) {
@@ -17,9 +17,21 @@ function UpdateTaskForm({ onSuccess, onError, task }) {
             setIsLoading(true);
             const payload = createFormDataWithFields(taskData);
             const { data } = await api.put(`/sprints/${task.sprint_id}/tasks/${task.id}`, payload);
-            onSuccess(data);
+            onUpdateSuccess(data);
         } catch (error) {
-            onError(error.response);
+            onUpdateError(error.response);
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    async function onDelete() {
+        try {
+            setIsLoading(true);
+            await api.delete(`/sprints/${task.sprint_id}/tasks/${task.id}`);
+            onDeleteSuccess();
+        } catch (error) {
+            onDeleteError(error.response);
         } finally {
             setIsLoading(false);
         }
@@ -29,7 +41,7 @@ function UpdateTaskForm({ onSuccess, onError, task }) {
         <>
             <h3>Tarefa - {task.title}</h3>
             <TaskForm onSubmit={onSubmit} task={task}>
-                <Button text='Excluir' variant='error' isLoading={isLoading} type='button'/>
+                <Button text='Excluir' variant='error' isLoading={isLoading} type='button' onClick={onDelete} />
                 <Button text='Salvar' variant='primary' isLoading={isLoading} type='submit'/>
             </TaskForm>
         </>

@@ -21,18 +21,3 @@
     background-color: #F8FBFC;
 }
 
-form {
-    margin-top: 24px;
-}
-
-form label:not(:first-of-type) {
-    margin-top: 16px;
-}
-
-form div.buttons {
-    display: flex;
-    justify-content: flex-end;
-    gap: 16px;
-    margin-top: 24px;
-}
-
