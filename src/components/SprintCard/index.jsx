@@ -16,7 +16,7 @@ function SprintCard({ sprint }) {
                 <div className='progress' style={{ width: `${donePercentage}%` }}></div>
             </div>
             <div className='progress-labels'>
-                <div className='label'>Progress</div>
+                <div className='label'>Progresso</div>
                 <div>{round(donePercentage)}%</div>
             </div>
             <div className='due-date'>
