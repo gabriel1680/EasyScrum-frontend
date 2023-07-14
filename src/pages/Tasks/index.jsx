@@ -77,7 +77,7 @@ function TasksView() {
                     <TaskList onTaskUpdate={onTaskUpdate} tasks={backlogTasks} />
                 </div> 
                 <div className='tasks-section-container'>
-                    <h2 className='in-progress'>Em andamanento</h2>
+                    <h2 className='in-progress'>Em andamento</h2>
                     {isTasksLoading && <LoadingSpinner />}
                     <TaskList onTaskUpdate={onTaskUpdate} tasks={inProgressTasks} />
                 </div> 
