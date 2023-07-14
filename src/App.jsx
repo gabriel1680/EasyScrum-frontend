@@ -4,17 +4,14 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import './App.css';
+import AppLayout from './layouts/AppLayout';
 
 function App() {
-  return (
-        <div className='app-container'>
-            <ToastContainer autoClose={8000} />
-            <header className='app-header'>EasyScrum</header>
-            <main className='app-content'>
-                <Outlet /> 
-            </main>
-        </div>
+    return (
+        <AppLayout>
+            <Outlet />
+        </AppLayout>
     );
 }
 
-export default App
+export default App;

@@ -3,11 +3,11 @@ import { useEffect, useState } from 'react';
 
 import './style.css';
 import Button from '../../components/Button';
-import useGetSprints from './useGetSprints';
 import SprintList from '../../components/SprintList';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import CreateSprintForm from '../../components/CreateSprintForm';
 import Modal from '../../components/Modal';
+import useGetSprints from '../../hooks/useGetSprints';
 
 function Home() {
     const [refetch, setRefetch] = useState(0);

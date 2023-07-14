@@ -5,17 +5,23 @@ import { toast } from 'react-toastify';
 import './style.css';
 import Button from '../../components/Button';
 import LoadingSpinner from '../../components/LoadingSpinner';
-import useGetSprint from './useGetSprint';
-import useGetTasks from './useGetTasks';
 import Modal from '../../components/Modal';
 import CreateTaskForm from '../../components/CreateTaskForm';
+import UpdateTaskForm from '../../components/UpdateTaskForm';
 import TaskList from '../../components/TaskList';
+import useGetSprint from '../../hooks/useGetSprint';
+import useGetTasks from '../../hooks/useGetTasks';
+import useTaskUpdateForm from '../../hooks/useTaskUpdateForm';
+import useCreateTaskForm from '../../hooks/useCreateTaskForm';
 
 function TasksView() {
     const { sprintId } = useParams();
 
     const [refetch, setRefetch] = useState(0);
     const [showModal, setShowModal] = useState(false);
+
+    const [showEditTaskModal, setShowEditTaskModal] = useState(false);
+    const [selectedTask, setSelectedTask] = useState(null);
 
     const { sprint, isLoading: isSprintLoading, error: sprintError } = useGetSprint(sprintId);
 
@@ -44,57 +50,84 @@ function TasksView() {
         }
     }, [tasksError]);
 
-    function onCreateTaskSuccess() {
-        toast.success('Tarefa criada com sucesso!');
-        setShowModal(false);
+    function onTaskCreate() {
         setRefetch(prev => prev += 1);
+        setShowModal(false);
     }
 
-    function onCreateTaskError(error) {
-        if (![400, 422].includes(error.status)) {
-            toast.error('Parece que houve um erro ao cadastrar a tarefa');
-        } else {
-            toast.error(error.data.message);
-        }
-        console.error(error);
-    }
+    const { 
+        onCreateTaskError, 
+        onCreateTaskSuccess 
+    } = useCreateTaskForm({ onTaskCreate });
 
     function onTaskUpdate() {
         setRefetch(prev => prev += 1);
+        setShowEditTaskModal(false);
+    }
+
+    const { 
+        onDeleteSuccess,
+        onUpdateFailure,
+        onUpdateSuccess, 
+        onDeleteFailure
+    } = useTaskUpdateForm({ onTaskUpdate });
+
+    function onTaskClick(task) {
+        setSelectedTask(task);
+        setShowEditTaskModal(true);
     }
 
     return (
         <>
+            {/* Return link */}
             <div className='back-link'><a href='/'>&#x2190; Voltar</a></div>
+
+            {/* Sprint Info */}
             <div className='sprint-list-header'>
                 <h1>{isSprintLoading ? <LoadingSpinner /> : sprint.name} - Tarefas</h1>
                 <Button text='+ Nova tarefa' variant='primary' onClick={() => setShowModal(true)}/>
             </div>
+
+            {/* Tasks Lists */}
             <div className='tasks-container'>
                 <div className='tasks-section-container'>
                     <h2 className='backlog'>Backlog</h2>
                     {isTasksLoading && <LoadingSpinner />}
-                    <TaskList onTaskUpdate={onTaskUpdate} tasks={backlogTasks} />
+                    <TaskList onTaskClick={onTaskClick} tasks={backlogTasks} />
                 </div> 
                 <div className='tasks-section-container'>
                     <h2 className='in-progress'>Em andamento</h2>
                     {isTasksLoading && <LoadingSpinner />}
-                    <TaskList onTaskUpdate={onTaskUpdate} tasks={inProgressTasks} />
+                    <TaskList onTaskClick={onTaskClick} tasks={inProgressTasks} />
                 </div> 
                 <div className='tasks-section-container'>
                     <h2 className='revision'>Aguardando revisão</h2>
                     {isTasksLoading && <LoadingSpinner />}
-                    <TaskList onTaskUpdate={onTaskUpdate} tasks={revisionTasks} />
+                    <TaskList onTaskClick={onTaskClick} tasks={revisionTasks} />
                 </div> 
                 <div className='tasks-section-container'>
                     <h2 className='done'>Concluído</h2>
                     {isTasksLoading && <LoadingSpinner />}
-                    <TaskList onTaskUpdate={onTaskUpdate} tasks={doneTasks} />
+                    <TaskList onTaskClick={onTaskClick} tasks={doneTasks} />
                 </div> 
             </div>
+
+            {/* Create Task Modal */}
             {showModal && <Modal onClose={() => setShowModal(false)}>
                 <CreateTaskForm onError={onCreateTaskError} onSuccess={onCreateTaskSuccess} sprintId={sprintId} />
             </Modal>}
+
+            {/* Update Task Modal */}
+            {showEditTaskModal &&
+                <Modal onClose={() => setShowEditTaskModal(false)}>
+                    <UpdateTaskForm 
+                        onUpdateError={onUpdateFailure} 
+                        onUpdateSuccess={onUpdateSuccess} 
+                        onDeleteError={onDeleteFailure}
+                        onDeleteSuccess={onDeleteSuccess}
+                        task={selectedTask}
+                    />
+                </Modal>}
         </> 
     );
 }

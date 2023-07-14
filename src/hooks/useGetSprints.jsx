@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import { api } from '../../services/api';
+import { api } from '../services/api';
 
 /**
  * Busca as sprints na api
