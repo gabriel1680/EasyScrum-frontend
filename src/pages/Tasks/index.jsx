@@ -77,6 +77,29 @@ function TasksView() {
         setShowEditTaskModal(true);
     }
 
+    const TASK_LIST_CONFIG = [
+        {
+            title: 'Backlog',
+            style: 'backlog',
+            tasks: backlogTasks
+        },
+        {
+            title: 'Em andamento',
+            style: 'in-progress',
+            tasks: inProgressTasks
+        },
+        {
+            title: 'Aguardando revisão',
+            style: 'revision',
+            tasks: revisionTasks
+        },
+        {
+            title: 'Concluído',
+            style: 'done',
+            tasks: doneTasks
+        }
+    ];
+
     return (
         <>
             {/* Return link */}
@@ -90,26 +113,13 @@ function TasksView() {
 
             {/* Tasks Lists */}
             <div className='tasks-container'>
-                <div className='tasks-section-container'>
-                    <h2 className='backlog'>Backlog</h2>
-                    {isTasksLoading && <LoadingSpinner />}
-                    <TaskList onTaskClick={onTaskClick} tasks={backlogTasks} />
-                </div> 
-                <div className='tasks-section-container'>
-                    <h2 className='in-progress'>Em andamento</h2>
-                    {isTasksLoading && <LoadingSpinner />}
-                    <TaskList onTaskClick={onTaskClick} tasks={inProgressTasks} />
-                </div> 
-                <div className='tasks-section-container'>
-                    <h2 className='revision'>Aguardando revisão</h2>
-                    {isTasksLoading && <LoadingSpinner />}
-                    <TaskList onTaskClick={onTaskClick} tasks={revisionTasks} />
-                </div> 
-                <div className='tasks-section-container'>
-                    <h2 className='done'>Concluído</h2>
-                    {isTasksLoading && <LoadingSpinner />}
-                    <TaskList onTaskClick={onTaskClick} tasks={doneTasks} />
-                </div> 
+                {TASK_LIST_CONFIG.map(config => (
+                    <div className='tasks-section-container'>
+                        <h2 className={config.style}>{config.title}</h2>
+                        {isTasksLoading && <LoadingSpinner />}
+                        <TaskList onTaskClick={onTaskClick} tasks={config.tasks} />
+                    </div> 
+                ))}
             </div>
 
             {/* Create Task Modal */}
