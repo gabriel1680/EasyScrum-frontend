@@ -5,6 +5,7 @@
     border-radius: 8px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     cursor: pointer;
+    font-family: Roboto;
 }
 
 .sprint-card:hover {
@@ -25,7 +26,7 @@
 }
 
 .progress {
-    background-color: #3744BD;
+    background-color: #3744bd;
     border-radius: 8px;
     height: 100%;
 }
@@ -37,14 +38,14 @@
 }
 
 .progress-labels .label {
-    color: #97A1B6;
+    color: #97a1b6;
     font-weight: 400;
 }
 
 .due-date {
     display: flex;
     justify-content: flex-end;
-    color: #97A1B6;
+    color: #97a1b6;
 }
 
 .done-container {
