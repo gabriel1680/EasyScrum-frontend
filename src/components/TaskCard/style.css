@@ -1,8 +1,9 @@
 .task-card {
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     padding: 16px;
     border-radius: 8px;
     cursor: pointer;
+    max-width: 300px;
 }
 
 .task-card:hover {
@@ -14,4 +15,3 @@
     font-weight: 700;
     font-size: 1rem;
 }
-
