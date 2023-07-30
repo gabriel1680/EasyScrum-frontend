@@ -13,3 +13,12 @@ npm run dev
 ```
 
 **OBS:** O app está configurado para fazer as chamadas no endereço http://localhost:8080. Por esse motivo ou deve-se alterar a configuraçao do axios (`baseUrl`) ou rodar o backend nessa porta.
+
+
+## Documentação
+
+Inicialização StoryBook
+
+```sh
+npm run storybook
+```
