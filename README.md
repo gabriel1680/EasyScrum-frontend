@@ -12,7 +12,15 @@ Iniciando o servidor de desenvolvimento
 npm run dev
 ```
 
-**OBS:** O app está configurado para fazer as chamadas no endereço http://localhost:8080. Por esse motivo ou deve-se alterar a configuraçao do axios (`baseUrl`) ou rodar o backend nessa porta.
+**OBS:** O app utiliza a configuração de contida em variáveis de ambiente para determinar qual o endereço do backend
+para as chamadas à API. É necessário criar um arquivo .env na raíz do projeto com `VITE_BACKEND_URL` e colocar o endereço
+lá.
+
+Ex:
+
+```sh
+echo "VITE_BACKEDN_URL=http://localhost:8080" > .env
+```
 
 
 ## Documentação
