@@ -27,10 +27,8 @@ h3 {
 form {
     display: flex;
     flex-direction: column;
-}
-
-form {
     margin-top: 24px;
+    max-width: 600px;
 }
 
 form label:not(:first-of-type) {

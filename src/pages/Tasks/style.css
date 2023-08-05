@@ -6,12 +6,14 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 24px;
+    overflow-x: auto;
 }
 
 .tasks-section-container {
     background-color: #F5F5F5;
     border-radius: 8px;
     padding: 24px;
+    min-width: 224px;
 }
 
 .tasks-section-container h2 {
@@ -41,3 +43,9 @@
     border: none;
 }
 
+@media(max-width: 768px) {
+    .sprint-list-header {
+        flex-direction: column;
+        gap: 24px;
+    }
+}
