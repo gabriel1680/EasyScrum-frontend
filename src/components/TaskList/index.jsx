@@ -1,11 +1,7 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types'
-import { toast } from 'react-toastify';
 
 import './style.css';
-import Modal from '../Modal';
 import TaskCard from '../TaskCard';
-import UpdateTaskForm from '../UpdateTaskForm';
 
 function TaskList({ tasks, onTaskClick }) {
     return (
