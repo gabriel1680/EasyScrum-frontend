@@ -47,3 +47,7 @@ input, textarea, select {
     padding: 8px;
 }
 
+input:disabled, textarea:disabled, select:disabled {
+    color: gray;
+    cursor: not-allowed;
+}

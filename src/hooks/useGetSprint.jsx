@@ -23,7 +23,7 @@ export default function useGetSprint(sprintId) {
             const { data } = await api.get(`/sprints/${sprintId}`);
             setSprint(data);
         } catch (error) {
-           setError(error);
+            setError(error);
         } finally {
             setIsLoading(false);
         }

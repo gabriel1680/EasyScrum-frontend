@@ -1,59 +1,63 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
 import Button from '../Button';
-import { api } from '../../services/api';
 
-function CreateSprintForm({ onSuccess, onError }) {
-    const [isLoading, setIsLoading] = useState(false);
+/**
+ * @param {{ onSubmit: (sprint: import('../../@types/easy-scrum').Sprint) => Promise<any>, isLoading: boolean }} param0
+ */
+function CreateSprintForm({ onSubmit, isLoading }) {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [dueDate, setDueDate] = useState('');
 
-    async function onSubmit(e) {
-        try {
-            e.preventDefault();
-            setIsLoading(true);
-            const payload = createFormDataWithFields();
-            const { data } = await api.post('/sprints', payload);
-            onSuccess(data);
-        } catch (error) {
-            onError(error.response);
-        } finally {
-            setIsLoading(false);
-        }
+    function handleSubmit(e) {
+        e.preventDefault();
+        onSubmit({ name, description, dueDate });
     }
 
     return (
         <>
             <h3>Nova Sprint</h3>
-            <form onSubmit={onSubmit}>
-                <label htmlFor='name'>Nome</label>
-                <input name='name' type='text' required value={name} onChange={e => setName(e.target.value)}/>       
-                <label htmlFor='description'>Descrição</label>
-                <textarea name='description' type='text' required value={description} onChange={e => setDescription(e.target.value)}></textarea>
-                <label htmlFor='dueDate'>Termina em</label>
-                <input name='dueDate' type='datetime-local' required value={dueDate} onChange={e => setDueDate(e.target.value)}/>       
-                <div className='buttons'>
-                    <Button text='Salvar' variant='primary' isLoading={isLoading} type='submit'/>
+            <form onSubmit={handleSubmit}>
+                <label htmlFor="name">Nome</label>
+                <input
+                    name="name"
+                    type="text"
+                    required
+                    value={name}
+                    disabled={isLoading}
+                    onChange={e => setName(e.target.value)}
+                />
+                <label htmlFor="description">Descrição</label>
+                <textarea
+                    name="description"
+                    type="text"
+                    required
+                    value={description}
+                    disabled={isLoading}
+                    onChange={e => setDescription(e.target.value)}
+                ></textarea>
+                <label htmlFor="dueDate">Termina em</label>
+                <input
+                    name="dueDate"
+                    type="datetime-local"
+                    required
+                    value={dueDate}
+                    disabled={isLoading}
+                    onChange={e => setDueDate(e.target.value)}
+                />
+                <div className="buttons">
+                    <Button text="Salvar" variant="primary" isLoading={isLoading} type="submit" />
                 </div>
             </form>
         </>
     );
-        
-    function createFormDataWithFields() {
-        const form = new FormData();
-        form.append('name', name);
-        form.append('description', description);
-        form.append('due_date', dueDate);
-        return form;
-    } 
 }
 
 CreateSprintForm.propType = {
-    onSuccess: PropTypes.func,
-    onError: PropTypes.func
+    onSubmit: PropTypes.func,
+    isLoading: PropTypes.bool,
 };
 
-export default CreateSprintForm
-
+export default CreateSprintForm;
